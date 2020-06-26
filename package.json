@@ -5,7 +5,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx ts tsx"
   },
   "dependencies": {
     "expo": "~38.0.1",
@@ -20,6 +21,7 @@
     "react-native-screens": "~2.9.0",
     "react-native-unimodules": "~0.10.0",
     "react-native-web": "~0.11.7",
+    "react-relay": "^9.1.0",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
@@ -27,9 +29,14 @@
     "@types/react": "~16.9.23",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.61.23",
+    "@types/relay-runtime": "^9.1.5",
     "@types/styled-components": "^5.1.0",
+    "babel-plugin-relay": "^9.1.0",
     "babel-preset-expo": "~8.2.0",
+    "graphql": "^15.1.0",
     "jest-expo": "~38.0.0",
+    "relay-compiler": "^9.1.0",
+    "relay-config": "^9.1.0",
     "typescript": "~3.9.5"
   },
   "jest": {
