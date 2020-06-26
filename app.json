@@ -1,12 +1,14 @@
 {
-  "name": "mobileapp",
-  "displayName": "mobileapp",
+  "name": "soulua-mobileapp",
+  "displayName": "soul.ua mobile application",
   "expo": {
-    "name": "mobileapp",
-    "slug": "mobileapp",
+    "name": "souluamobileapp",
+    "slug": "souluamobileapp",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": "",
+    "githubUrl": "https://github.com/soul-ua/mobileapp"
   }
 }

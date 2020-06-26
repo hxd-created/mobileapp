@@ -1,21 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, Image } from 'react-native';
+import styled from 'styled-components/native';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <Container>
       <StatusBar style="auto" />
-    </View>
+      <Logo source={require("./assets/logo-circle.png")} />
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Container = styled.View`
+  flex: 1;
+  background-color: orange;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Logo = styled.Image`
+  width: 100%;
+`;
