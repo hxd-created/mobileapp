@@ -1,32 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ReactRelayContext } from 'react-relay';
-import { Text, Image } from 'react-native';
-import styled from 'styled-components/native';
+import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
 
-import GraphqlTest from './GraphqlTest';
 import getEnvironment from './environment';
+import UserContext, { UserInContext } from './context/user';
+
+import LaunchScreen from './screens/LaunchScreen';
+import MainScreen from './screens/MainScreen';
+import LoginScreen from './screens/LoginScreen';
 
 
 const environment = getEnvironment();
 
+const __query = graphql`
+  query AppQuery {
+    passport {
+      viewer {
+        id
+        realID
+        firstname
+        lastname
+      }
+    }
+  }
+`;
+
 export default function App() {
+
+  
   return (<ReactRelayContext.Provider value={{environment, variables: {}}}>
-    <Container>
-      <StatusBar style="auto" />
-      <GraphqlTest />
-      <Logo source={require("./assets/logo-circle.png")} />
-    </Container>
+    <StatusBar style="auto" />
+    <QueryRenderer
+      environment={environment}
+      query={__query}
+      render={({error, props}) => {
+        if (error) {
+          console.log('error', error);
+          alert("Error");
+        }
+        if (!props) {
+          return (<LaunchScreen />);
+        }
+
+        const userContextValue: UserInContext = {
+          isAuthenticated: props.passport.viewer !== null,
+          user: null,
+        };
+        console.log("context", userContextValue);
+        return (<UserContext.Provider value={userContextValue}>
+          {userContextValue.isAuthenticated
+            ? <MainScreen />
+            : <LoginScreen />
+          }
+        </UserContext.Provider>);
+      }}
+    />
   </ReactRelayContext.Provider>);
 }
 
-const Container = styled.View`
-  flex: 1;
-  background-color: orange;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Logo = styled.Image`
-  width: 100%;
-`;

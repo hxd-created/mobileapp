@@ -1,4 +1,5 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import * as SecureStore from 'expo-secure-store';
 
 
 export default () => {
@@ -6,7 +7,7 @@ export default () => {
     "queryURI": "http://soul.lcl/query",
   };
   
-  function fetchQuery(
+  async function fetchQuery(
     operation,
     variables,
   ) {
@@ -14,7 +15,13 @@ export default () => {
         'Content-Type': 'application/json',
     }
 
-    const accessToken = null;
+    let accessToken = null;
+    try {
+      accessToken = await SecureStore.getItemAsync("accessToken");
+    } catch (error) {
+      console.error(error)
+    }
+    
     if (accessToken) {
       headers['AccessToken'] = accessToken;
     }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "expo": "~38.0.1",
+    "expo-secure-store": "~9.0.1",
     "expo-splash-screen": "^0.3.1",
     "expo-status-bar": "^1.0.0",
     "expo-updates": "~0.2.8",
@@ -26,11 +27,6 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "@types/react": "~16.9.23",
-    "@types/react-dom": "~16.9.8",
-    "@types/react-native": "~0.61.23",
-    "@types/relay-runtime": "^9.1.5",
-    "@types/styled-components": "^5.1.0",
     "babel-plugin-relay": "^9.1.0",
     "babel-preset-expo": "~8.2.0",
     "graphql": "^15.1.0",
