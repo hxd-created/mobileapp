@@ -4,7 +4,8 @@ import * as SecureStore from 'expo-secure-store';
 
 export default () => {
   const __config = {
-    "queryURI": "http://soul.lcl/query",
+    // "queryURI": "https://soul.ua/graphql",   // production
+    "queryURI": "http://soul.lcl/query",   // development
   };
   
   async function fetchQuery(
@@ -30,8 +31,14 @@ export default () => {
       variables,
     };
 
-    // in future production setup should use queryID instead of raw query passing
-    body['query'] = operation.text;
+    if (operation.id !== null) {
+      body['queryId'] = operation.id;
+    } else if (operation.text !== null) {
+      body['query'] = operation.text;
+    } else {
+      alert('somthing went wrong with graphql configuration. App will not work properly')
+    }
+    console.log('body', body)
 
     return fetch(__config.queryURI, {
       method: 'POST',
