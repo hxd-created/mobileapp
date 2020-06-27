@@ -13,6 +13,7 @@ import styled from 'styled-components/native';
 import * as SecureStore from 'expo-secure-store';
 
 import SigninMutation from '../mutations/Passport/SigninMutation';
+import refetchViewer from '../helpers/refetchViewer';
 
 
 export default () => {
@@ -31,13 +32,14 @@ export default () => {
     SigninMutation(environment, login, password, async (response, errors) => {
       if (errors) {
         alert(errors[0].message);
+        setLoading(false);
         return;
       }
       
       const accessToken = response.passportMutations.Signin.accessToken;
       await SecureStore.setItemAsync('accessToken', accessToken);
 
-      setLoading(false);
+      await refetchViewer(environment);
     })
   }
 
