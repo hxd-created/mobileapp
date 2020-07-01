@@ -3,6 +3,7 @@ import React from 'react';
 import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
 
 import getEnvironment from './environment';
+
 import UserContext, { UserInContext } from './context/user';
 
 import LaunchScreen from './screens/LaunchScreen';
@@ -26,7 +27,6 @@ const __query = graphql`
 `;
 
 export default function App() {
-
   
   return (<ReactRelayContext.Provider value={{environment, variables: {}}}>
     <StatusBar style="auto" />

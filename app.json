@@ -5,6 +5,7 @@
     "name": "souluamobileapp",
     "slug": "souluamobileapp",
     "version": "0.0.1",
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],

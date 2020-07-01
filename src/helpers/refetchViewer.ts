@@ -15,3 +15,10 @@ export default async (environment) => {
     }
   `);
 }
+
+/* For logout
+
+SecureStore.deleteItemAsync("accessToken");
+refetchViewer(environment);
+
+*/
