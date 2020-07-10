@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { createFragmentContainer, graphql } from 'react-relay';
 
 import Avatar from '../Avatar';
+import PublicationTime from '../PublicationTime';
 
 
 const StoryHeader = ({story}) => {
@@ -10,7 +11,7 @@ const StoryHeader = ({story}) => {
     <Avatar avatar={story.publisher.avatar} />
     <PubslishedDetails>
       <Publisher>{story.publisher.title}</Publisher>
-      <Datetime>{story.createdAt}</Datetime>
+      <Datetime><PublicationTime time={story.createdAt} /></Datetime>
     </PubslishedDetails>
   </Container>);
 }
@@ -58,11 +59,12 @@ const PubslishedDetails = styled.View`
 `;
 
 const Publisher = styled.Text`
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 18px;
   color: ${({theme}) => theme.colors.text};
 `;
 
 const Datetime = styled.Text`
   color: ${({theme}) => theme.colors.text};
+  margin-top: 4px;
 `;

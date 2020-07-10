@@ -5,10 +5,10 @@ import Story from '../Story';
 
 
 export default ({list, refreshing=false, onRefresh=null, onEndReached=null}) => {
-  console.log('storyList', list.length)
   return (<Container>
     <FlatList
       data={list}
+      style={{flexGrow: 0}}
       renderItem={ ({item}) => <Story story={item} /> }
       keyExtractor={ story => story.id }
       onEndReached={onEndReached}

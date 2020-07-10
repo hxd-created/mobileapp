@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
+import { AppearanceProvider } from 'react-native-appearance'
 
 import getEnvironment from './environment';
 
@@ -28,33 +29,34 @@ const __query = graphql`
 
 export default () => {
   
-  return (<ReactRelayContext.Provider value={{environment, variables: {}}}>
-    <StatusBar style="auto" />
-    <QueryRenderer
-      environment={environment}
-      query={__query}
-      render={({error, props}) => {
-        if (error) {
-          console.log('error', error);
-          alert("Error");
-        }
-        if (!props) {
-          return (<LaunchScreen />);
-        }
-
-        const userContextValue: UserInContext = {
-          isAuthenticated: props.passport.viewer !== null,
-          user: null,
-        };
-        console.log("context", userContextValue);
-        return (<UserContext.Provider value={userContextValue}>
-          {userContextValue.isAuthenticated
-            ? <MainScreen />
-            : <LoginScreen />
+  return (<AppearanceProvider>
+    <ReactRelayContext.Provider value={{environment, variables: {}}}>
+      <StatusBar style="auto" />
+      <QueryRenderer
+        environment={environment}
+        query={__query}
+        render={({error, props}) => {
+          if (error) {
+            console.log('error', error);
+            alert("Error");
           }
-        </UserContext.Provider>);
-      }}
-    />
-  </ReactRelayContext.Provider>);
+          if (!props) {
+            return (<LaunchScreen />);
+          }
+
+          const userContextValue: UserInContext = {
+            isAuthenticated: props.passport.viewer !== null,
+            user: null,
+          };
+          return (<UserContext.Provider value={userContextValue}>
+            {userContextValue.isAuthenticated
+              ? <MainScreen />
+              : <LoginScreen />
+            }
+          </UserContext.Provider>);
+        }}
+      />
+    </ReactRelayContext.Provider>
+  </AppearanceProvider>);
 }
 

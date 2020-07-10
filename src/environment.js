@@ -38,7 +38,6 @@ export default () => {
     } else {
       alert('somthing went wrong with graphql configuration. App will not work properly')
     }
-    console.log('body', body)
 
     return fetch(__config.queryURI, {
       method: 'POST',

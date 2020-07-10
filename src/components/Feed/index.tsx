@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Text } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Text, Button } from 'react-native';
 import { ReactRelayContext, fetchQuery, commitLocalUpdate } from 'react-relay';
 
 import QueryRenderer from '../../helpers/QueryRenderer';
@@ -10,6 +10,7 @@ import * as feedQuery from './feedQuery';
 
 export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }) => {
   const { environment } = useContext(ReactRelayContext);
+  const [ isRefreshing, setRefreshing ] = useState(false);
 
   let variables;
   let query;
@@ -81,15 +82,20 @@ export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }) =>
 
       const cursor = props.feed.connection.cursor;
 
-      // console.log('props', props);
       return (<StoryList
         list={props.feed.connection.edges}
         onRefresh={retry}
+        refreshing={isRefreshing}
         onEndReached={() => {
-          if (cursor === null) { return }
-          _loadMore(cursor, limit, () => { console.log('loading complete') })
+          if (cursor === null) return;
+          if (isRefreshing) return;
+
+          setRefreshing(true);
+          _loadMore(cursor, limit, () => { 
+            setRefreshing(false);
+            })
         }}
-      />)
+      />);
     }}
   />);
 }

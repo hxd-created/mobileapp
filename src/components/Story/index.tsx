@@ -22,12 +22,12 @@ export default createFragmentContainer(Story, {
         __typename
       }
       ...StoryHeader_story
+      ...StoryContent_story
     }
   `,
 })
 
 const Container = styled.View`
-  min-height: 200px;
   background-color: ${({theme}) => theme.colors.card};
   margin-bottom: 10px;
 `;
