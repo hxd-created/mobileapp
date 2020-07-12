@@ -9,12 +9,15 @@ export default ({list, refreshing=false, onRefresh=null, onEndReached=null}) => 
     <FlatList
       data={list}
       style={{flexGrow: 0}}
-      renderItem={ ({item}) => <Story story={item} /> }
+      renderItem={ ({item}) => (<>
+        <EmptySpace />
+        <Story story={item} />
+      </>)}
       keyExtractor={ story => story.id }
       onEndReached={onEndReached}
       onRefresh={onRefresh}
       refreshing={refreshing}
-      onEndReachedThreshold={0.75}
+      onEndReachedThreshold={0.6}
       numColumns={1}
     />
   </Container>);
@@ -22,4 +25,8 @@ export default ({list, refreshing=false, onRefresh=null, onEndReached=null}) => 
 
 const Container = styled.View`
   flex: 1;
+`;
+
+const EmptySpace = styled.View`
+  height: 10px;
 `;

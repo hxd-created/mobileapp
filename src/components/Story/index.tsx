@@ -29,7 +29,6 @@ export default createFragmentContainer(Story, {
 
 const Container = styled.View`
   background-color: ${({theme}) => theme.colors.card};
-  margin-bottom: 10px;
 `;
 
 const Placeholder = styled.Text``;

@@ -1,26 +1,16 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import Feed from '../../components/Feed';
+import TabBar from './TabBar';
+import NewsFeed from './NewsFeed';
+import RubricsFeed from './RubricsFeed'
 
+
+const Stack = createMaterialTopTabNavigator();
 
 export default () => {
-  return (<Container>
-    <Boilerplate>Feed screen</Boilerplate>
-
-    <Feed
-      type="my"
-      limit={10}
-    />
-  </Container>);
+  return (<Stack.Navigator tabBar={props => <TabBar {...props} />}>
+    <Stack.Screen name="NewsFeed" component={NewsFeed} />
+    <Stack.Screen name="Rubrics" component={RubricsFeed} />
+  </Stack.Navigator>);
 }
-
-const Container = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
-`;
-
-const Boilerplate = styled.Text`
-  color: ${({theme}) => theme.colors.text};
-`;
-
