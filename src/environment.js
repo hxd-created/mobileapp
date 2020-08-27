@@ -5,7 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 export default () => {
   const __config = {
     // "queryURI": "https://soul.ua/graphql",   // production
-    "queryURI": "http://soul.lcl/query",   // development
+    "queryURI": "https://soul.ua/query",   // development
   };
   
   async function fetchQuery(

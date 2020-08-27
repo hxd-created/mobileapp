@@ -6,18 +6,11 @@
 
 Поперше, потрібно завантажити актуальну graphql схему, що використовуватиметься react-relay.
 
-Для цього рекомендовано використовувати утиліту `get-graphql-schema`, встановіть її глобально:
 ```sh
-$ yarn global add get-graphql-schema 
+$ yarn update-schema
 ```
 
-потім завантажте схему. Вона повинна бути у корні і мати назву файла `schema.graphql`
-
-```sh
-$ get-graphql-schema http://soul.lcl/query > schema.graphql
-```
-
-Після цього - потрібно скомпілювати все, що пов'язано з graphql.
+Після цього - потрібно скомпілювати все, що пов'язано з graphql. (флаг `--watch` залишить процес відслідковувати зміни)
 
 ```sh
 $ yarn relay
