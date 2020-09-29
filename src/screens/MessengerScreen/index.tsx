@@ -1,19 +1,23 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
+import {
+  createStackNavigator,
+} from '@react-navigation/stack';
+
+import Dialogues from './Dialogues';
+import Chat from './Chat';
+
+const Stack = createStackNavigator();
 
 export default () => {
-  return (<Container>
-    <Boilerplate>Messenger screen</Boilerplate>
-  </Container>);
+  return (<Stack.Navigator>
+    <Stack.Screen
+      name="Dialogues"
+      component={Dialogues}
+      options={{title: "Messages"}}
+    />
+    <Stack.Screen name="Chat" component={Chat} />
+  </Stack.Navigator>);
 }
 
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Boilerplate = styled.Text`
-  color: ${({theme}) => theme.colors.text};
-`;

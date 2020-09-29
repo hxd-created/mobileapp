@@ -46,7 +46,7 @@ export default () => {
 
           const userContextValue: UserInContext = {
             isAuthenticated: props.passport.viewer !== null,
-            user: null,
+            user: props.passport.viewer,
           };
           return (<UserContext.Provider value={userContextValue}>
             {userContextValue.isAuthenticated
