@@ -10,6 +10,12 @@ import {
 } from '@react-navigation/native';
 import { Ionicons, AntDesign, FontAwesome } from '@expo/vector-icons';
 
+import NewsFeedIcon from '../components/Icons/NewsFeedIcon';
+import ServicesIcon from '../components/Icons/ServicesIcon';
+import ProfileIcon from '../components/Icons/ProfileIcon';
+import MessagesIcon from '../components/Icons/MessagesIcon';
+import NotificationsIcon from '../components/Icons/NotificationsIcon';
+
 import FeedScreen from './FeedScreen';
 import AppsScreen from './AppsScreen';
 import ProfileScreen from './ProfileScreen';
@@ -42,25 +48,24 @@ export default () => {
             let iconName;
             const iconProps = { size: size+6, color };
             if (route.name === 'Feed') {
-              return (<Ionicons name="md-browsers" {...iconProps} />);
+              return (<NewsFeedIcon {...iconProps} />);
             } else if (route.name === 'Apps') {
-              return (<AntDesign name='appstore1' {...iconProps} />);
+              return (<ServicesIcon {...iconProps} />);
             } else if (route.name === 'Profile') {
-              return (<FontAwesome name="user" {...iconProps} />);
+              return (<ProfileIcon {...iconProps} />);
             } else if (route.name === 'Messenger') {
-              return (<Ionicons name="ios-chatbubbles" {...iconProps} />);
+              return (<MessagesIcon {...iconProps} />);
             } else if (route.name === 'Notifications') {
-              return (<Ionicons name="ios-notifications" {...iconProps} />);
+              return (<NotificationsIcon {...iconProps} />);
             }
-            
-            // You can return any component that you like here!
-            return <AntDesign name={iconName} size={size} color={color} />;
+
+            return null;
           },
         })}
         tabBarOptions={{
           activeTintColor: 'orange',
           // inactiveTintColor: 'gray',
-          showLabel: false,
+          showLabel: true,
         }}
       >
         <Tab.Screen name="Feed" component={FeedScreen} />
