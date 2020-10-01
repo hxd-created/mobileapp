@@ -37,12 +37,13 @@ export interface DialogParticipantObject {
 
 export interface Photo {
   id: string
-  mediumURL: string
+  previewURL: string
 }
 
 export type MessageGeneric = Message | MessageInit | MessageJoin;
 
 export interface Message {
+  __typename: string
   id: string
   replyToMessage: Message
   senderKind: string
@@ -53,11 +54,13 @@ export interface Message {
 }
 
 export interface MessageInit {
+  __typename: string
   id: string
   sentAt: number
 }
 
 export interface MessageJoin {
+  __typename: string
   id: string
   sentAt: number
   participant: DialogParticipant

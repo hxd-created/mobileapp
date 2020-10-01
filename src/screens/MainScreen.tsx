@@ -8,7 +8,8 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import { Ionicons, AntDesign, FontAwesome } from '@expo/vector-icons';
+
+import userContext from '../context/user';
 
 import NewsFeedIcon from '../components/Icons/NewsFeedIcon';
 import ServicesIcon from '../components/Icons/ServicesIcon';
@@ -21,12 +22,52 @@ import AppsScreen from './AppsScreen';
 import ProfileScreen from './ProfileScreen';
 import MessengerScreen from './MessengerScreen';
 import NotificationsScreen from './NotificationsScreen';
+import Chat from './MessengerScreen/Chat';
+import { getDialogueTitle } from './MessengerScreen/Dialogues/utils';
+import { Dialog } from './MessengerScreen/models';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const TabsScreen = () => {
+  return <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        const iconProps = { size: size+6, color };
+        if (route.name === 'Feed') {
+          return (<NewsFeedIcon {...iconProps} />);
+        } else if (route.name === 'Apps') {
+          return (<ServicesIcon {...iconProps} />);
+        } else if (route.name === 'Profile') {
+          return (<ProfileIcon {...iconProps} />);
+        } else if (route.name === 'Messenger') {
+          return (<MessagesIcon {...iconProps} />);
+        } else if (route.name === 'Notifications') {
+          return (<NotificationsIcon {...iconProps} />);
+        }
+
+        return null;
+      },
+    })}
+    tabBarOptions={{
+      activeTintColor: 'orange',
+      // inactiveTintColor: 'gray',
+      showLabel: true,
+    }}
+  >
+    <Tab.Screen name="Feed" component={FeedScreen} />
+    <Tab.Screen name="Apps" component={AppsScreen} />
+    <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Screen name="Messenger" component={MessengerScreen} />
+    <Tab.Screen name="Notifications" component={NotificationsScreen} />
+  </Tab.Navigator>
+}
 
 export default () => {
   const scheme = useColorScheme();
+  const { user } = React.useContext(userContext);
 
   /* theme Object {
     "colors": Object {
@@ -42,38 +83,20 @@ export default () => {
 
   return (<ThemeProvider theme={theme}>
     <NavigationContainer theme={theme}>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            const iconProps = { size: size+6, color };
-            if (route.name === 'Feed') {
-              return (<NewsFeedIcon {...iconProps} />);
-            } else if (route.name === 'Apps') {
-              return (<ServicesIcon {...iconProps} />);
-            } else if (route.name === 'Profile') {
-              return (<ProfileIcon {...iconProps} />);
-            } else if (route.name === 'Messenger') {
-              return (<MessagesIcon {...iconProps} />);
-            } else if (route.name === 'Notifications') {
-              return (<NotificationsIcon {...iconProps} />);
-            }
-
-            return null;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'orange',
-          // inactiveTintColor: 'gray',
-          showLabel: true,
-        }}
-      >
-        <Tab.Screen name="Feed" component={FeedScreen} />
-        <Tab.Screen name="Apps" component={AppsScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Messenger" component={MessengerScreen} />
-        <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      </Tab.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
+      }}>
+        <Stack.Screen name="Home" component={TabsScreen} />
+        <Stack.Screen
+          name="MessengerChat"
+          component={Chat}
+          options={({route}) => {
+            const dialog = route.params.dialog as Dialog;
+            const title = getDialogueTitle("user", `${user.realID}`, dialog);
+            return { title, headerShown: true, headerBackTitleVisible: false }
+          }}
+      />
+      </Stack.Navigator>
     </NavigationContainer>
   </ThemeProvider>);
 }

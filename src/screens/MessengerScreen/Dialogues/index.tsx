@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
 import ErrorView from '../../../components/ErrorView';
 import LoadingView from '../../../components/LoadingView';
+import { Dialog } from '../models';
 import Dialogues from './Dialogues';
 
 
@@ -17,8 +18,13 @@ const __query = graphql`
   }
 `;
 
-export default () => {
+export default ({navigation: { navigate }}) => {
   const { environment } = useContext(ReactRelayContext);
+
+  const openDialog = (dialog: Dialog) => {
+    navigate("MessengerChat", { dialog });
+  }
+
   return <QueryRenderer
     environment={environment}
     query={__query}
@@ -30,7 +36,10 @@ export default () => {
       if (!props) {
         return <LoadingView />
       }
-      return <Dialogues dialogs={props.messenger.dialogs.edges} />
+      return <Dialogues
+        dialogs={props.messenger.dialogs.edges}
+        openDialog={openDialog}
+      />
     }}
   />
 }
