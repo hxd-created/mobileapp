@@ -6,7 +6,7 @@
     "web": "expo start --web",
     "start": "react-native start",
     "test": "jest",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx ts tsx",
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql --language typescript --extensions js jsx ts tsx",
     "update-schema": "get-graphql-schema https://soul.ua/query > schema.graphql"
   },
   "dependencies": {
@@ -39,12 +39,14 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@types/react": "^16.9.49",
     "babel-plugin-relay": "^9.1.0",
     "babel-preset-expo": "^8.3.0",
     "get-graphql-schema": "^2.1.2",
     "graphql": "^15.1.0",
     "jest-expo": "^39.0.0",
     "relay-compiler": "^9.1.0",
+    "relay-compiler-language-typescript": "^13.0.1",
     "relay-config": "^9.1.0",
     "typescript": "~3.9.2"
   },
