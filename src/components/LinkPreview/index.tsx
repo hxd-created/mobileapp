@@ -14,8 +14,8 @@ const LinkPreview = ({link, onClose=null}) => {
     {link.cover && <Cover link={link} href={href} />}
     <Body onPress={() => { openURL(href) }}>
       <Host>{link.host}</Host>
-      <Title to={href} target="_blank">{link.title}</Title>
-      {!link.cover && link.description.length > 10 && <Description to={href} target="_blank">{link.description}</Description>}
+      <Title>{link.title}</Title>
+      {!link.cover && link.description.length > 10 && <Description>{link.description}</Description>}
     </Body>
   </Container>);
 }
@@ -28,8 +28,11 @@ const Cover = ({link, href}) => {
     // return (<YouTube link={link} />);
   }
 
-  return (<CoverContainer to={href} target="_blank">
-    <CoverImg source={{uri: link.cover.mediumURL}} style={{width: windowWidth}}/>
+  return (<CoverContainer style={{width: windowWidth}} onPress={() => { openURL(href) }}>
+    <CoverImg
+      source={{uri: link.cover.mediumURL}}
+      style={{width: windowWidth}}
+    />
   </CoverContainer>);
 }
 
@@ -51,7 +54,7 @@ export default createFragmentContainer(LinkPreview, {
 });
 
 const Container = styled.View`
-  flex: 1;
+  
 `;
 
 const OnClose = styled.View`
@@ -66,7 +69,6 @@ const OnClose = styled.View`
 
 const Body = styled.TouchableOpacity`
   margin: 10px;
-  flex: 1;
 `;
 
 const Host = styled.Text`
@@ -84,14 +86,14 @@ const Title = styled.Text`
 `;
 
 const Description = styled.Text`
-  color: ${({theme}) => theme.colors.font};
+  color: ${({theme}) => theme.colors.text};
   text-decoration: none;
 `;
 
-const CoverContainer = styled.Text`
+const CoverContainer = styled.TouchableOpacity`
+  height: 200px;
 `;
 
 const CoverImg = styled.Image`
-  flex: 1;
-  height: 150px;
+  height: 200px;
 `;

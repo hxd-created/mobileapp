@@ -28,7 +28,6 @@ const __query = graphql`
 `;
 
 export default () => {
-  
   return (<AppearanceProvider>
     <ReactRelayContext.Provider value={{environment, variables: {}}}>
       <StatusBar style="auto" />

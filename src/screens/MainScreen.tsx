@@ -95,7 +95,7 @@ export default () => {
             const title = getDialogueTitle("user", `${user.realID}`, dialog);
             return { title, headerShown: true, headerBackTitleVisible: false }
           }}
-      />
+        />
       </Stack.Navigator>
     </NavigationContainer>
   </ThemeProvider>);
