@@ -22,16 +22,34 @@ const LinkPreview = ({link, onClose=null}) => {
 
 const Cover = ({link, href}) => {
   const windowWidth = useWindowDimensions().width;
+  const maxHeight = 200;
 
   if (link.type.startsWith("video") && link.host.endsWith("youtube.com")) {
     return null;
     // return (<YouTube link={link} />);
   }
 
-  return (<CoverContainer style={{width: windowWidth}} onPress={() => { openURL(href) }}>
+  if (!link.cover) {
+    return null;
+  }
+
+  let coverWidth, coverHeight = 0;
+  if (link.cover.width > link.cover.height) {
+    const ratio = link.cover.width/link.cover.height;
+    coverWidth = windowWidth
+    coverHeight = coverWidth/ratio;
+  }
+  
+  if (coverHeight === 0 || coverHeight > maxHeight) {
+    coverHeight = maxHeight;
+    coverWidth = windowWidth;
+  }
+
+  return (<CoverContainer style={{width: coverWidth, height: coverHeight}} onPress={() => { openURL(href) }}>
     <CoverImg
       source={{uri: link.cover.mediumURL}}
-      style={{width: windowWidth}}
+      resizeMode="cover"
+      style={{width: coverWidth, height: coverHeight}}
     />
   </CoverContainer>);
 }
@@ -47,6 +65,8 @@ export default createFragmentContainer(LinkPreview, {
       description
       cover {
         mediumURL
+        width
+        height
       }
       # ...YouTube_link
     }
@@ -91,9 +111,8 @@ const Description = styled.Text`
 `;
 
 const CoverContainer = styled.TouchableOpacity`
-  height: 200px;
+  background-color: #fff;
 `;
 
 const CoverImg = styled.Image`
-  height: 200px;
 `;

@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 
 export default ({paragraph}) => {
+  if (paragraph.data === "") return null;
   return (<Text>{paragraph.data}</Text>);
 }
 

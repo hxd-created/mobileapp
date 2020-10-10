@@ -1,8 +1,7 @@
 import React from 'react';
-import { useWindowDimensions, View, Text } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
-import styled from 'styled-components/native';
-import Swiper from 'react-native-swiper'
+import PhotosGrid from '../../PhotosGrid';
 
 
 const PhotosParagraph = ({attachments}) => {
@@ -12,15 +11,7 @@ const PhotosParagraph = ({attachments}) => {
     .filter(attach => attach.__typename === "Photo")
     .sort((a,b) => a.realID - b.realID);
 
-  return (<SwiperStyled style={{height: windowWidth}} showsButtons={false}>
-    {photos.map((photo) => (<Slide key={photo.id} style={{height: windowWidth}}>
-      <PhotoImage
-        source={{uri: photo.mediumURL}}
-        resizeMode="contain"
-        style={{height: windowWidth}}
-      />
-    </Slide>))}
-  </SwiperStyled>);
+  return (<PhotosGrid containerWidth={windowWidth} photos={photos} />);
 }
 
 export default createFragmentContainer(PhotosParagraph, {
@@ -28,20 +19,9 @@ export default createFragmentContainer(PhotosParagraph, {
     fragment PhotosParagraph_attachments on StoryAttachment @relay(plural: true) {
       __typename
       ... on Photo {
-        id
-        realID
-        previewURL
-        mediumURL
+        ...PhotosGrid_photos
       }
     }
   `,
 });
 
-const SwiperStyled = styled(Swiper)`
-`;
-
-const Slide = styled.View`
-`;
-
-const PhotoImage = styled.Image`
-`;
