@@ -1,5 +1,5 @@
 import React from 'react';
-import { createFragmentContainer } from 'react-relay';
+import { createFragmentContainer, graphql } from 'react-relay';
 import styled from 'styled-components';
 
 

@@ -36,8 +36,12 @@ export interface DialogParticipantObject {
 }
 
 export interface Photo {
+  __typename
   id: string
   previewURL: string
+  mediumURL: string
+  width: number
+  height: number
 }
 
 export type MessageGeneric = Message | MessageInit | MessageJoin;
@@ -66,4 +70,4 @@ export interface MessageJoin {
   participant: DialogParticipant
 }
 
-export interface MessageAttachment {}
+export type MessageAttachment = Photo | {__typename: string}

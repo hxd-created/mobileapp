@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components/native';
-import { DialogParticipant, DialogType, Message } from '../models';
+import PhotosGrid from '../../../components/PhotosGrid';
+import { DialogParticipant, DialogType, Message, Photo } from '../models';
 
 
 export interface ComponentProps {
@@ -26,12 +27,38 @@ export default (props: ComponentProps) => {
     }
   }
 
-  return <Container isMyMessage={props.isMyMessage}>
-    {avatar}
-    <Bubble isMyMessage={props.isMyMessage}>
-      <MessageText>{message.text}</MessageText>
-    </Bubble>
-  </Container>
+  const photos: Photo[] = message.attachments
+    .filter(attachment => attachment.__typename === "Photo")
+
+
+  return <>
+    <Container isMyMessage={props.isMyMessage}>
+      {avatar}
+      <MessageContentContainer isMyMessage={props.isMyMessage}>
+        {message.text.trim() !== "" && <Bubble isMyMessage={props.isMyMessage} size={getBubbleSizeByText(message.text)}>
+          <MessageText>{message.text}</MessageText>
+        </Bubble>}
+        {photos.length > 0 && <PhotosGridContainer>
+          <PhotosGrid photos={photos} containerWidth={300} />
+        </PhotosGridContainer>}
+      </MessageContentContainer>
+    </Container>
+  </>
+}
+
+function getBubbleSizeByText(text: string): "s" | "m" | "l" | "xl" {
+  const len = text.length;
+  if (len > 200) {
+    return "xl";
+  }
+  if (len > 150) {
+    return "l";
+  }
+  if (len > 100) {
+    return "m";
+  }
+
+  return "s";
 }
 
 const Container = styled.View`
@@ -56,6 +83,14 @@ const AvatarEmpty = styled.View`
   border-radius: 50px;
 `;
 
+const MessageContentContainer = styled.View`
+  ${({isMyMessage}) => isMyMessage
+    ? `align-items: flex-end;`
+    : `align-items: flex-start;`
+  }
+  width: 100%;
+`;
+
 const Bubble = styled.View`
   ${({isMyMessage}) => isMyMessage
     ? `background-color: rgba(255,255,255,0.1);`
@@ -65,7 +100,20 @@ const Bubble = styled.View`
   padding: 10px;
   margin-left: 5px;
   margin-right: 5px;
-  max-width: 70%;
+  max-width: ${({size}) => {
+    if (size === "xl") return "90%";
+    if (size === "l") return "80%";
+    if (size === "m") return "70%";
+    return "65%";
+  }};
+`;
+
+const PhotosGridContainer = styled.View`
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  overflow: hidden;
 `;
 
 const MessageText = styled.Text`

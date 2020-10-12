@@ -30,9 +30,12 @@ const __query = graphql`
             attachments{
               __typename
               ... on Photo{
+                ...PhotosGrid_photos
                 id
                 previewURL
                 mediumURL
+                width
+                height
               }
             }
           }
