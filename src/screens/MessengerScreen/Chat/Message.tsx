@@ -118,4 +118,5 @@ const PhotosGridContainer = styled.View`
 
 const MessageText = styled.Text`
   color: ${({theme}) => theme.colors.text};
+  font-size: 15px;
 `;
