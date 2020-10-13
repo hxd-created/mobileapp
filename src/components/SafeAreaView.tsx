@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  View,
   SafeAreaView,
   StyleSheet,
-  Platform,
   StatusBar,
 } from 'react-native';
 
@@ -14,14 +12,12 @@ export default (props) => {
     ...restProps
   } = props;
 
-  const Component = Platform.OS === "android" ? View : SafeAreaView;
-
-  return (<Component
+  return (<SafeAreaView
     styles={[droidStyles, styles]}
     {...restProps}
   />);
 }
 
 const droidStyles = StyleSheet.create({
-  paddingTop: StatusBar.currentHeight,
+  // paddingTop: StatusBar.currentHeight,
 });
