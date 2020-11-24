@@ -2,8 +2,9 @@
   "name": "soulua-mobileapp",
   "displayName": "soul.ua mobile application",
   "expo": {
-    "name": "souluamobileapp",
+    "name": "SOUL",
     "slug": "souluamobileapp",
+    "icon": "src/assets/logo-circle.png",
     "version": "0.0.1",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
