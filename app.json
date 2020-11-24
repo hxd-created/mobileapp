@@ -11,6 +11,9 @@
       "**/*"
     ],
     "description": "Mobile client for https://soul.ua",
-    "githubUrl": "https://github.com/soul-ua/mobileapp"
+    "githubUrl": "https://github.com/soul-ua/mobileapp",
+    "android": {
+      "package": "ua.soul.mobileapp"
+    }
   }
 }
