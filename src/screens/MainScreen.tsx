@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useColorScheme } from 'react-native-appearance';
 import {
   NavigationContainer,
@@ -25,7 +26,6 @@ import NotificationsScreen from './NotificationsScreen';
 import Chat from './MessengerScreen/Chat';
 import { getDialogueTitle } from './MessengerScreen/Dialogues/utils';
 import { Dialog } from './MessengerScreen/models';
-import { createStackNavigator } from '@react-navigation/stack';
 
 
 const Tab = createBottomTabNavigator();

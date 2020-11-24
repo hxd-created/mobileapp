@@ -19,5 +19,5 @@ export default (props) => {
 }
 
 const droidStyles = StyleSheet.create({
-  // paddingTop: StatusBar.currentHeight,
+  paddingTop: StatusBar.currentHeight,
 });

@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '@react-navigation/native';
 import { TabBar } from 'react-native-tab-view';
-
-import SafeAreaView from '../../components/SafeAreaView';
+import Constants from 'expo-constants';
 
 
 export default (props) => {
@@ -14,23 +13,17 @@ export default (props) => {
     ...rest
   } = props;
 
-  return (<Container>
-    <TabBar
-      {...rest}
-      style={[{backgroundColor: theme.colors.card}, style]}
-      renderLabel={({ route, focused }) => (
-        <Label focused={focused}>
-          {route.name === 'NewsFeed' ? "Новини" : "Цікаве"}
-        </Label>
-      )}
-      indicatorStyle={{ backgroundColor: 'orange' }}
-    />
-  </Container>);
+  return (<TabBar
+    {...rest}
+    style={[{backgroundColor: theme.colors.card, paddingTop: Constants.statusBarHeight}, style]}
+    renderLabel={({ route, focused }) => (
+      <Label focused={focused}>
+        {route.name === 'NewsFeed' ? "Новини" : "Цікаве"}
+      </Label>
+    )}
+    indicatorStyle={{ backgroundColor: 'orange' }}
+  />);
 }
-
-const Container = styled(SafeAreaView)`
-  background-color: ${({theme}) => theme.colors.card};
-`;
 
 const Label = styled.Text`
   color: ${({theme}) => theme.colors.text};
