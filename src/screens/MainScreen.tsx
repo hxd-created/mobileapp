@@ -3,12 +3,12 @@ import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Appearance, useColorScheme } from 'react-native-appearance';
 import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
+import { useDarkMode } from 'react-native-dynamic'
 
 import userContext from '../context/user';
 
@@ -66,11 +66,8 @@ const TabsScreen = () => {
 }
 
 export default () => {
-  const scheme = useColorScheme();
-  alert("COLOR SCHEME: " + scheme + "\n" + Appearance.getColorScheme())
-  setTimeout(() => {
-    alert("COLOR SCHEME: " + scheme + "\n" + Appearance.getColorScheme())
-  })
+  const isDark = useDarkMode();
+  
   const { user } = React.useContext(userContext);
 
   /* theme Object {
@@ -83,7 +80,7 @@ export default () => {
     },
     "dark": false,
   } */
-  const theme = scheme === 'dark' ? DarkTheme : DefaultTheme;
+  const theme = isDark ? DarkTheme : DefaultTheme;
 
   return (<ThemeProvider theme={theme}>
     <NavigationContainer theme={theme}>

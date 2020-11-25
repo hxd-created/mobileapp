@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
-import { AppearanceProvider } from 'react-native-appearance'
+import { ColorSchemeProvider } from 'react-native-dynamic';
 
 import getEnvironment from './environment';
 
@@ -28,7 +28,7 @@ const __query = graphql`
 `;
 
 export default () => {
-  return (<AppearanceProvider>
+  return (<ColorSchemeProvider>
     <ReactRelayContext.Provider value={{environment, variables: {}}}>
       <StatusBar style="auto" />
       <QueryRenderer
@@ -56,6 +56,6 @@ export default () => {
         }}
       />
     </ReactRelayContext.Provider>
-  </AppearanceProvider>);
+  </ColorSchemeProvider>);
 }
 
