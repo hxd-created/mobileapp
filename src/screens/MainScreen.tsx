@@ -26,6 +26,7 @@ import NotificationsScreen from './NotificationsScreen';
 import Chat from './MessengerScreen/Chat';
 import { getDialogueTitle } from './MessengerScreen/Dialogues/utils';
 import { Dialog } from './MessengerScreen/models';
+import ApplicationScreen from './ApplicationScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -96,6 +97,10 @@ export default () => {
             const title = getDialogueTitle("user", `${user.realID}`, dialog);
             return { title, headerShown: true, headerBackTitleVisible: false }
           }}
+        />
+        <Stack.Screen
+          name="Application"
+          component={ApplicationScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,19 +1,19 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import {
+  createStackNavigator,
+} from '@react-navigation/stack';
 
+import Hub from './Hub';
+
+
+const Stack = createStackNavigator();
 
 export default () => {
-  return (<Container>
-    <Boilerplate>Apps screen</Boilerplate>
-  </Container>);
+  return (<Stack.Navigator>
+    <Stack.Screen
+      name="Hub"
+      component={Hub}
+      options={{title: "Hub"}}
+    />
+  </Stack.Navigator>);
 }
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Boilerplate = styled.Text`
-  color: ${({theme}) => theme.colors.text};
-`;
