@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
+import { Modal, Alert } from 'react-native';
 import styled from 'styled-components';
 
 import AddCircleIcon from '../../../components/Icons/AddCircleIcon';
 import WritebarSendIcon from '../../../components/Icons/WritebarSend';
+import AttachmentsModal from './AttachmentsModal';
 
 
 export default () => {
-  return (<DialogInteractionSection>
-    <AttachmentButton>
-      <AddCircleIcon color="rgba(255,255,255, 0.5)" />
-    </AttachmentButton>
-    <MessageBox
-      multiline={true}
+  const [ isAttachmentsModalShown, setAttachmentsModalShown ] = useState(false);
+  return (<>
+    <DialogInteractionSection>
+      <AttachmentButton onPress={() => setAttachmentsModalShown(!isAttachmentsModalShown)}>
+        <AddCircleIcon color="rgba(255,255,255, 0.5)" />
+      </AttachmentButton>
+      <MessageBox
+        multiline={true}
+      />
+      <SendBtnContainer>
+        <WritebarSendIcon width={42} height={42} />
+      </SendBtnContainer>
+    </DialogInteractionSection>
+    <AttachmentsModal
+      isShown={isAttachmentsModalShown}
+      addAttachments={() => { console.log('addAttachments') }}
+      onClose={() => setAttachmentsModalShown(false)}
     />
-    <SendBtnContainer>
-      <WritebarSendIcon width={42} height={42} />
-    </SendBtnContainer>
-  </DialogInteractionSection>);
+  </>);
 }
 
-const DialogInteractionSection = styled.View`
+const DialogInteractionSection = styled.SafeAreaView`
   flex-direction: row;
 `;
 
@@ -29,7 +39,7 @@ const AttachmentButton = styled.TouchableOpacity`
   justify-content: center;
   align-self: flex-end;
   padding-left: 10px;
-  padding-bottom: 2px;
+  padding-bottom: 8px;
 `;
 
 const MessageBox = styled.TextInput`
