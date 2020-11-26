@@ -14,9 +14,6 @@ export default () => {
   const logout = () => {
     SecureStore.deleteItemAsync("accessToken");
     refetchViewer(environment);
-    if(confirm("test")) {
-      alert("pass")
-    }
   }
 
   const fetchUpdates = async () => {

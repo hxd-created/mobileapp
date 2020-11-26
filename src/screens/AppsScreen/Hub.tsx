@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Button } from 'react-native';
 import { ReactRelayContext, QueryRenderer, graphql } from 'react-relay';
 import styled, { css } from 'styled-components/native';
 import queryRenderWrapper from '../../components/queryRenderWrapper';
 import AppsCard from './AppsCard';
+import { AppCardList, AppCardListItem } from './AppsCardList';
 
 
 const __query = graphql`
@@ -15,11 +15,27 @@ const __query = graphql`
         currency
       }
     }
+    apps {
+      my {
+        id
+        isEnabled
+        title
+        icon {
+          id
+          previewURL
+        }
+      }
+    }
   }
 `;
 
 
-const Hub = ({ navigate, soulpay }) => {
+const games = [
+  {"id":"a15f5185-928a-4df9-9e37-155a4639069e","title":"Virus","icon":{"previewURL":"https://res.cloudinary.com/dfuteltnk/image/upload/c_limit,w_300,h_300/f6fb3c65cad9a7aef59bd755dbd1376385e0e036d370f797c68c8859624eb6ee","id":"photo-15638"}},
+  {"id":"d0dc634b-5db7-42ab-ad21-6747ffcf72a2","title":"2048","icon":{"previewURL":"https://res.cloudinary.com/dfuteltnk/image/upload/c_limit,w_300,h_300/b0a8e60cc19d6cd62000c7f4084e6976c58205626087fd7407b60893df221747","id":"photo-41978"}},
+];
+
+const Hub = ({ navigate, soulpay, myDevApps }) => {
   const openApp = (appID) => {
     navigate('Application', { appID })
   }
@@ -36,6 +52,30 @@ const Hub = ({ navigate, soulpay }) => {
       </PaySubtitle>}
       onPress={() => openApp("1c6787e1-d9d6-4478-89e5-7590a9aa4b23")}
     />
+
+    {myDevApps && myDevApps.length > 0 && <AppsCard
+      title="My development apps"
+      content={<AppCardList>
+        {myDevApps.map(app => <AppCardListItem
+          key={app.id}
+          icon={app.icon}
+          title={app.title}
+          onPress={() => openApp(app.id)}
+        />)}
+      </AppCardList>}
+    />}
+
+    <AppsCard
+      title="Games"
+      content={<AppCardList>
+        {games.map(app => <AppCardListItem
+          key={app.id}
+          icon={app.icon}
+          title={app.title}
+          onPress={() => openApp(app.id)}
+        />)}
+      </AppCardList>}
+    />
   </Container>);
 }
 
@@ -45,7 +85,7 @@ export default ({navigation: { navigate }}) => {
   return (<QueryRenderer
     environment={environment}
     query={__query}
-    render={queryRenderWrapper(({soulpay}) => <Hub navigate={navigate} soulpay={soulpay} />)}
+    render={queryRenderWrapper((rsp) => <Hub navigate={navigate} soulpay={rsp.soulpay} myDevApps={rsp.apps.my} />)}
   />);
 }
 

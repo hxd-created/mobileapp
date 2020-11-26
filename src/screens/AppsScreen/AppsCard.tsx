@@ -3,14 +3,15 @@ import styled, { css } from 'styled-components/native';
 import ChevronRightIcon from '../../components/Icons/ChevronRight';
 
 
-export default ({iconSource, title, subtitleComponent=null, onPress}) => {
+export default ({iconSource, title, subtitleComponent=null, onPress=null, content=null}) => {
   return (<CardContainer onPress={onPress} activeOpacity={0.8}>
     <Heading>
-      <Icon source={iconSource} />
+      {iconSource && <Icon source={iconSource} />}
       <Title>{title}</Title>
       {subtitleComponent && subtitleComponent}
-      <ChevronRightIcon />
+      {onPress && <ChevronRightIcon />}
     </Heading>
+    {content && content}
   </CardContainer>);
 }
 

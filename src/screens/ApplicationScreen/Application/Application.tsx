@@ -131,8 +131,8 @@ class Application extends React.Component {
       {!this.state.isInited && <LoadingContainer>
         <Loading
           isLoading={true}
-          label={this.props.app.title}
-          iconSource={{uri: this.props.app.icon.previewURL}}
+          label={this.props.app && this.props.app.title}
+          icon={this.props.app && this.props.app.icon}
         />
       </LoadingContainer>}
       <ApplicationControls>

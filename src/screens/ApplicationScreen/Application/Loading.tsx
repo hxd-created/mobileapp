@@ -2,7 +2,8 @@ import React from 'react';
 import { ActivityIndicator, Button } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
-export default ({isLoading, hasError = false, retry=null, iconSource = null, label=null}) => {
+export default ({isLoading, hasError = false, retry=null, icon = null, label=null}) => {
+  const iconSource = icon && icon.previewURL ? {uri: icon.previewURL} : null;
   return (<Container>
     {hasError && retry && <Button
       onPress={retry}
@@ -15,7 +16,7 @@ export default ({isLoading, hasError = false, retry=null, iconSource = null, lab
     </Content>
 
     <Footer>
-      <ActivityIndicator />
+      <ActivityIndicator color="orange" />
     </Footer>
   </Container>);
 }

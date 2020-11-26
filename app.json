@@ -5,7 +5,7 @@
     "name": "SOUL",
     "slug": "souluamobileapp",
     "icon": "src/assets/logo-circle.png",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
