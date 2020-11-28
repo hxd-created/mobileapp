@@ -14,21 +14,21 @@ const VotingBtn = ({vote}) => {
     let Icon;
     vote.myVote===1 ? Icon=HeartFilledIcon : Icon=HeartIcon;
 
-const handleLike = ()=>{
-    ChangeVoteMutation(environment, objectKind, objectID, direction , async (response, errors) => {
-        if (errors) {
-          alert(errors[0].message);
-          return;
-        }
-    })
+    const handleLike = ()=>{
+        ChangeVoteMutation(environment, objectKind, objectID, direction , async (response, errors) => {
+            if (errors) {
+                alert(errors[0].message);
+            return;
+            }
+        })
 }
 
-return (
-    <LikeBtn onPress={handleLike}>
-        <Icon width={25} height={25}/>
-        <Text>{vote.votes}</Text>
-    </LikeBtn>
-)
+    return (
+        <LikeBtn onPress={handleLike}>
+            <Icon width={25} height={25}/>
+            <Text>{vote.votes}</Text>
+        </LikeBtn>
+    )
 }
 
 
