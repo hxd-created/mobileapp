@@ -99,11 +99,11 @@ export default ({route: { params }}) => {
         return <LoadingView />
       }
 
-      return <Layout
+      return (<Layout
         messages={props.messenger.messages.edges}
         dialog={dialog}
         senderKind={senderKind} senderID={senderID}
-      />
+      />);
     }}
   />
 }

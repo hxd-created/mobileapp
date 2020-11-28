@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components/native';
-import PhotosGrid from '../../../components/PhotosGrid';
+import { PhotosGrid } from '../../../components/PhotosGrid';
 import { DialogParticipant, DialogType, Message, Photo } from '../models';
 
 
 export interface ComponentProps {
   message: Message
-  getParticipant: (kind, id) => DialogParticipant
+  getParticipant: (kind: string, id: string) => DialogParticipant
   dialogType: DialogType
   isMyMessage: boolean
 }
@@ -35,12 +35,12 @@ export default (props: ComponentProps) => {
     <Container isMyMessage={props.isMyMessage}>
       {avatar}
       <MessageContentContainer isMyMessage={props.isMyMessage}>
-        {message.text.trim() !== "" && <Bubble isMyMessage={props.isMyMessage} size={getBubbleSizeByText(message.text)}>
-          <MessageText>{message.text}</MessageText>
-        </Bubble>}
         {photos.length > 0 && <PhotosGridContainer>
           <PhotosGrid photos={photos} containerWidth={300} />
         </PhotosGridContainer>}
+        {message.text.trim() !== "" && <Bubble isMyMessage={props.isMyMessage} size={getBubbleSizeByText(message.text)}>
+          <MessageText>{message.text}</MessageText>
+        </Bubble>}
       </MessageContentContainer>
     </Container>
   </>
@@ -110,7 +110,7 @@ const Bubble = styled.View`
 
 const PhotosGridContainer = styled.View`
   border-radius: 10px;
-  margin-top: 5px;
+  margin-bottom: 5px;
   margin-left: 5px;
   margin-right: 5px;
   overflow: hidden;

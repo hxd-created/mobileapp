@@ -1,17 +1,20 @@
 import React, { PureComponent } from 'react';
-import { FlatList, Text } from 'react-native';
-import styled from 'styled-components';
+import { FlatList } from 'react-native';
 
-import { Dialog, DialogParticipant, Message } from '../models';
+import { Dialog, DialogParticipant, Message, MessageGeneric, MessageQueueItem } from '../models';
 import MessageComponent from './Message';
+import SendMessage from './SendMessage';
 
 
 export interface ComponentProps {
-  messages: Message[]
+  messages: MessageGeneric[]
   dialog: Dialog
 
   senderKind: string
   senderID: string
+
+  sendQueue: MessageGeneric[]
+  removeMessageFromQueue: (tempID: string) => void
 }
 
 export default class MessagesList extends PureComponent<ComponentProps> {
@@ -30,15 +33,27 @@ export default class MessagesList extends PureComponent<ComponentProps> {
     }
   }
 
-  _keyExtractor = (item: Message, index) => item.id;
+  _keyExtractor = (item: MessageGeneric, index) => item.id;
 
-  _renderItem = ({item} : {item: Message}) => {
-    return <MessageComponent
-      message={item}
-      getParticipant={this.getParticipant}
-      dialogType={this.props.dialog.type}
-      isMyMessage={item.senderKind === this.props.senderKind && item.senderID === this.props.senderID}
-    />
+  _renderItem = ({item} : {item: MessageGeneric}) => {
+    if (item.__typename === "Message") {
+      return <MessageComponent
+        message={item as Message}
+        getParticipant={this.getParticipant}
+        dialogType={this.props.dialog.type}
+        isMyMessage={(item as Message).senderKind === this.props.senderKind && (item as Message).senderID === this.props.senderID}
+      />
+    }
+    
+    if (item.__typename === "MessageQueueItem") {
+      return (<SendMessage
+        message={item as MessageQueueItem}
+        getParticipant={this.getParticipant}
+        dialogType={this.props.dialog.type}
+      />);
+    }
+
+    return null;
   }
 
   getParticipant = (kind: string, id: string): DialogParticipant => {
@@ -51,7 +66,7 @@ export default class MessagesList extends PureComponent<ComponentProps> {
   render() {
     return <FlatList
       inverted
-      data={this.props.messages}
+      data={[...this.props.sendQueue, ...this.props.messages]}
       extraData={this.state}
       keyExtractor={this._keyExtractor}
       renderItem={this._renderItem}

@@ -7,8 +7,16 @@ import Galary from './Galary';
 
 
 export default ({isShown, addAttachments, onClose}) => {
-  const [ selectedSection, setSelectedSection ] = useState("galary")
+  const [ selectedSection, setSelectedSection ] = useState("galary");
+  const [ sectionActionBtn, setSectionActionBtn ] = useState(null);
+
   const windowHeight = useWindowDimensions().height;
+
+  const addGalaryAssets = (assets) => {
+    addAttachments(assets);
+    onClose();
+    
+  }
 
   return (<Modal
     animationType="slide"
@@ -26,9 +34,15 @@ export default ({isShown, addAttachments, onClose}) => {
         </MenuItem>
       </Menu>
       <Content>
-        {selectedSection === "galary" && <Galary />}
+        {selectedSection === "galary" && <Galary setActionBtn={setSectionActionBtn} onDone={addGalaryAssets}/>}
       </Content>
       <ActionContainer>
+        {sectionActionBtn && <ActionBtn type="primary" onPress={sectionActionBtn.onPress}>
+          <ActionLabel>
+            {sectionActionBtn.titleKey === "add" && "Add"}
+            {sectionActionBtn.counterLabel && `(${sectionActionBtn.counterLabel})`}
+          </ActionLabel>
+        </ActionBtn>}
         <ActionBtn onPress={() => { onClose() }}><ActionLabel>Cancel</ActionLabel></ActionBtn>
       </ActionContainer>
     </Card>
@@ -89,18 +103,26 @@ const Content = styled.ScrollView`
 `;
 
 const ActionContainer = styled.View`
+  flex-direction: row;
   ${({theme}) => css`
     background-color: ${theme.colors.background};
   `}
 `;
 
 const ActionBtn = styled.TouchableOpacity`
+  flex: 1;
   margin: 10px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  ${({theme}) => css`
+  ${({theme, type="secondary"}) => css`
     background-color: ${theme.colors.card};
+  `}
+
+  ${({type = "secondary"}) => css`
+    ${type === "primary" && css`
+      margin-right: 0;
+    `}
   `}
 `;
 
