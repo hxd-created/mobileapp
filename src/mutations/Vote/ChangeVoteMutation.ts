@@ -1,7 +1,7 @@
 import { commitMutation, graphql } from 'react-relay';
 
 const mutation = graphql`
-mutation ChangeVoteMutation(
+  mutation ChangeVoteMutation(
     $objectKind: String!,
     $objectID: String!,
     $direction: Int!
