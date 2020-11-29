@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components/native';
+import React, { useContext, useState } from 'react';
+import styled, { css } from 'styled-components/native';
 import { createFragmentContainer, graphql, ReactRelayContext } from 'react-relay';
 
 
@@ -10,6 +10,7 @@ import HeartFilledIcon from '../../components/Icons/HeartFilled';
 
 const VotingBtn = ({vote}) => {
   const { environment } = useContext(ReactRelayContext);
+  const [ isLoading, setLoading ] = useState(false);
   const direction = vote.myVote===1 ? 0 : 1;
   const {
     objectID,
@@ -19,15 +20,17 @@ const VotingBtn = ({vote}) => {
   vote.myVote===1 ? Icon=HeartFilledIcon : Icon=HeartIcon;
 
   const handleLike = ()=>{
+    setLoading(true)
     ChangeVoteMutation(environment, objectKind, objectID, direction, (response, errors) => {
       if (errors) {
         console.log(errors.message);
+        setLoading(false)
         return;
       }
   });
 }
 
-  return (<LikeBtn onPress={handleLike}>
+  return (<LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
       <Icon width={25} height={25}/>
       <Text>{vote.votes}</Text>
     </LikeBtn>
@@ -55,6 +58,7 @@ const LikeBtn = styled.TouchableOpacity`
   align-items:center;
   flex-direction:row;
   margin:10px 10px 10px 10px;
+  ${({isLoading}) => !isLoading&& css`opacity = 0.5;` }
 `;
 const Text = styled.Text`
   color:white;
