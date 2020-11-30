@@ -30,12 +30,12 @@ const VotingBtn = ({vote}) => {
   });
 }
 
-  return (<View accessibilityState={{disabled:!isLoading}}>
+  return (<Container accessibilityState={{disabled:!isLoading}}>
       <LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
         <Icon width={25} height={25}/>
         <Text>{vote.votes}</Text>
       </LikeBtn>
-    </View>
+    </Container>
   );
 }
 
@@ -52,6 +52,12 @@ export default createFragmentContainer(VotingBtn, {
   `,
 });
 
+const Container = styled.View`
+  border-top-color: ${({theme})=>theme.colors.border};
+  border-top-width:1px;
+  margin:0px 8px 0px 8px;
+`;
+
 const LikeBtn = styled.TouchableOpacity`
   width:50px;
   height:25px;
@@ -59,7 +65,7 @@ const LikeBtn = styled.TouchableOpacity`
   justify-content:center;
   align-items:center;
   flex-direction:row;
-  margin:10px;
+  margin:10px 0px 10px 0px;
   ${({isLoading}) => isLoading=false && css`
     opacity:0.1;
   `}
