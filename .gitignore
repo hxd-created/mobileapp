@@ -65,3 +65,4 @@ web-build/
 schema.graphql
 __generated__
 persisted-queries.json
+package-lock.json
