@@ -6,6 +6,7 @@ import { createFragmentContainer, graphql, ReactRelayContext } from 'react-relay
 import ChangeVoteMutation from '../../mutations/Vote/ChangeVoteMutation';
 import HeartIcon from '../../components/Icons/Heart';
 import HeartFilledIcon from '../../components/Icons/HeartFilled';
+import { View } from 'react-native';
 
 
 const VotingBtn = ({vote}) => {
@@ -30,10 +31,12 @@ const VotingBtn = ({vote}) => {
   });
 }
 
-  return (<LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
-      <Icon width={25} height={25}/>
-      <Text>{vote.votes}</Text>
-    </LikeBtn>
+  return (<View accessibilityState={{disabled:isLoading}}>
+      <LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
+        <Icon width={25} height={25}/>
+        <Text>{vote.votes}</Text>
+      </LikeBtn>
+    </View>
   );
 }
 
@@ -58,7 +61,9 @@ const LikeBtn = styled.TouchableOpacity`
   align-items:center;
   flex-direction:row;
   margin:10px 10px 10px 10px;
-  ${({isLoading}) => !isLoading&& css`opacity = 0.5;` }
+  ${({isLoading}) => isLoading=false && css`
+    opacity:0.1;
+  `}
 `;
 const Text = styled.Text`
   color:white;

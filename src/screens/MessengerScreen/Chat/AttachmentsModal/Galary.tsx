@@ -35,7 +35,7 @@ export default () => {
     
   }
 
-  if () return null;
+  //if () return null;
 
   return (<Container>
     {assets.assets.map(asset => <ImageContainer key={asset.id} size={imageWidth}>
