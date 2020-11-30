@@ -19,13 +19,11 @@ const VotingBtn = ({vote}) => {
 
   const handleLike = ()=>{
     setLoading(true)
-    console.log(isLoading)
     isLoading===false && ChangeVoteMutation(environment, objectKind, objectID, direction, (response, errors) => {
       if (errors) {
         console.log(errors.message);
         return;
       }
-      console.log(isLoading,"2")
       setLoading(false)
   });
 }
