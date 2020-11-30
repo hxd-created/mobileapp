@@ -2,10 +2,10 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import styled from 'styled-components';
 
-
 import StoryHeader from './StoryHeader';
 import StoryContent from './StoryContent';
 import StoryFooter from './StoryFooter';
+
 
 const Story = ({story}) => {
   return (<Container>

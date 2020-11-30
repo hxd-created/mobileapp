@@ -2,14 +2,13 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 
-
 import VotingBtn from './VotingBtn';
 
 
 const StoryFooter = ({story}) => {
   return (<Container>
-      <VotingBtn vote={story.vote} />
-    </Container>);
+    <VotingBtn vote={story.vote} />
+  </Container>);
 }
 
 export default createFragmentContainer(StoryFooter, {

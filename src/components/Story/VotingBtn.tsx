@@ -19,22 +19,25 @@ const VotingBtn = ({vote}) => {
 
   const handleLike = ()=>{
     setLoading(true)
-    isLoading===false && ChangeVoteMutation(environment, objectKind, objectID, direction, (response, errors) => {
+    if(isLoading){
+      return;
+    }
+    ChangeVoteMutation(environment, objectKind, objectID, direction, (response, errors) => {
       if (errors) {
         console.log(errors.message);
+        setLoading(false)
         return;
       }
       setLoading(false)
-  });
-}
+    });  
+  }
 
-  return (<Container accessibilityState={{disabled:isLoading}}>
-      <LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
-        <Icon width={25} height={25}/>
-        <Text>{vote.votes}</Text>
-      </LikeBtn>
-    </Container>
-  );
+  return (<Container>
+    <LikeBtn onPress={handleLike} activeOpacity={0.5} isLoading={isLoading}>
+      <Icon width={25} height={25}/>
+      <Text>{vote.votes}</Text>
+    </LikeBtn>
+  </Container>);
 }
 
 
