@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 
+
 import VotingBtn from './VotingBtn';
 
 
