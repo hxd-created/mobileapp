@@ -22,9 +22,7 @@ function commit(
   objectID: string,
   direction,
   onCompleted,
-)
-
-{
+){
   const variables = {
     objectKind,
     objectID,

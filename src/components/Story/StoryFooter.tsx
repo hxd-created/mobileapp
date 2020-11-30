@@ -7,8 +7,7 @@ import VotingBtn from './VotingBtn';
 
 const StoryFooter = ({story}) => {
   return (<Container>
-    <VotingBtn 
-      vote={story.vote} />
+      <VotingBtn vote={story.vote} />
     </Container>);
 }
 
