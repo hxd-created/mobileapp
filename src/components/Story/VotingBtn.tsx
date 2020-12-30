@@ -18,18 +18,16 @@ const VotingBtn = ({vote}) => {
   const Icon = vote.myVote === 1 ? HeartFilledIcon : HeartIcon;
 
   const handleLike = ()=>{
-    setLoading(true)
+    setLoading(true);
     if(isLoading){
       return;
     }
-    ChangeVoteMutation(environment, objectKind, objectID, direction, (response, errors) => {
+    ChangeVoteMutation(environment, objectKind, objectID, direction, (_, errors) => {
       if (errors) {
         console.log(errors.message);
-        setLoading(false)
-        return;
       }
-      setLoading(false)
-    });  
+      setLoading(false);
+    });
   }
 
   return (<Container>
@@ -54,29 +52,29 @@ export default createFragmentContainer(VotingBtn, {
 });
 
 const Container = styled.View`
-  border-top-color: ${({theme})=>theme.colors.border};
-  border-top-width:1px;
-  margin:0px 8px;
+  border-top-color: ${({theme}) => theme.colors.border};
+  border-top-width: 1px;
+  margin: 0px 8px;
 `;
 
 const LikeBtn = styled.TouchableOpacity`
-  width:50px;
-  height:25px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:row;
-  margin:10px -10px;
-  ${({isLoading}) => isLoading=false && css`
-    opacity:0.5;
+  width: 50px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px -10px;
+  ${({isLoading}) => isLoading && css`
+    opacity: 0.5;
   `}
-  position:relative;
+  position: relative;
 `;
 
 const Text = styled.Text`
-  color:white;
-  font-size = 25px;
-  margin-left:10px;
-  position:absolute;
-  left:35px;
+  color: ${({theme}) => theme.colors.text};
+  font-size: 18px;
+  margin-left: 10px;
+  position: absolute;
+  left: 35px;
 `;
