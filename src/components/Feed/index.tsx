@@ -15,9 +15,10 @@ interface InputProps {
   ownerID: string | null
   limit: number
   rubricID: number | null
+  BeforeFeedComponent: any
 }
 
-export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }: InputProps) => {
+export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null, BeforeFeedComponent=null }: InputProps) => {
   const { environment } = useContext(ReactRelayContext);
   const [ isRefreshing, setRefreshing ] = useState(false);
 
@@ -83,6 +84,7 @@ export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }: In
       const cursor = props.feed.connection.cursor;
 
       return (<StoryList
+        BeforeFeedComponent={BeforeFeedComponent}
         list={props.feed.connection.edges}
         onRefresh={retry}
         refreshing={isRefreshing}

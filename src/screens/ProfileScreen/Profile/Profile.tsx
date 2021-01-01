@@ -13,9 +13,13 @@ export default () => {
     ownerKind="USER"
     ownerID={`${user.realID}`}
     limit={20}
+    BeforeFeedComponent={() => {
+      return <Test />
+    }}
   />);
 }
 
-const Container = styled.ScrollView`
-  flex: 1;
+const Test = styled.View`
+  height: 50px;
+  background-color: orange;
 `;
