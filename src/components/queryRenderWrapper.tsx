@@ -13,6 +13,6 @@ export default (render) => {
       return (<LoadingView />);
     }
   
-    return render(props);
+    return render(props, retry);
   }
 }

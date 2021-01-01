@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
+import i18n from 'i18n-js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -58,11 +59,11 @@ const TabsScreen = () => {
       showLabel: true,
     }}
   >
-    <Tab.Screen name="Feed" component={FeedScreen} />
-    <Tab.Screen name="Apps" component={AppsScreen} />
-    <Tab.Screen name="Profile" component={ProfileScreen} />
-    <Tab.Screen name="Messenger" component={MessengerScreen} />
-    <Tab.Screen name="Notifications" component={NotificationsScreen} />
+    <Tab.Screen name="Feed" component={FeedScreen} options={{title: i18n.t("main.tabbar.feed")}} />
+    <Tab.Screen name="Apps" component={AppsScreen} options={{title: i18n.t("main.tabbar.apps")}} />
+    <Tab.Screen name="Profile" component={ProfileScreen} options={{title: i18n.t("main.tabbar.profile")}} />
+    <Tab.Screen name="Messenger" component={MessengerScreen} options={{title: i18n.t("main.tabbar.messenger")}} />
+    <Tab.Screen name="Notifications" component={NotificationsScreen} options={{title: i18n.t("main.tabbar.notifications")}} />
   </Tab.Navigator>
 }
 

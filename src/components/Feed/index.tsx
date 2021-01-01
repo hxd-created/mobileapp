@@ -3,12 +3,21 @@ import { Text } from 'react-native';
 import { ReactRelayContext, fetchQuery, commitLocalUpdate } from 'react-relay';
 
 import QueryRenderer from '../../helpers/QueryRenderer';
+import queryRenderWrapper from '../queryRenderWrapper';
 import StoryList from '../StoryList';
 
 import * as feedQuery from './feedQuery';
 
 
-export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }) => {
+interface InputProps {
+  type: "owner" | "my" | "voted" | "rubric"
+  ownerKind: "COMMUNITY" | "USER" | null
+  ownerID: string | null
+  limit: number
+  rubricID: number | null
+}
+
+export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }: InputProps) => {
   const { environment } = useContext(ReactRelayContext);
   const [ isRefreshing, setRefreshing ] = useState(false);
 
@@ -70,16 +79,7 @@ export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }) =>
   return (<QueryRenderer
     query={query}
     variables={variables}
-    render={({error, props, retry}) => {
-      if (error) {
-        console.error(error)
-        return (<Text>error!</Text>);
-      }
-
-      if (!props) {
-        return (<Text>loading</Text>);
-      }
-
+    render={queryRenderWrapper((props, retry) => {
       const cursor = props.feed.connection.cursor;
 
       return (<StoryList
@@ -93,10 +93,10 @@ export default ({ type, ownerKind=null, ownerID=null, limit, rubricID=null }) =>
           setRefreshing(true);
           _loadMore(cursor, limit, () => { 
             setRefreshing(false);
-            })
+          });
         }}
       />);
-    }}
+    })}
   />);
 }
 

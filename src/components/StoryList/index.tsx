@@ -4,7 +4,14 @@ import styled from 'styled-components/native';
 import Story from '../Story';
 
 
-export default ({list, refreshing=false, onRefresh=null, onEndReached=null}) => {
+interface InputProps {
+  list: any
+  refreshing: boolean
+  onRefresh: () => void | null
+  onEndReached: () => void | null
+}
+
+export default ({list, refreshing=false, onRefresh=null, onEndReached=null}: InputProps) => {
   return (<Container>
     <FlatList
       data={list}

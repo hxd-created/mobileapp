@@ -11,8 +11,8 @@ import LaunchScreen from './screens/LaunchScreen';
 import MainScreen from './screens/MainScreen';
 import LoginScreen from './screens/LoginScreen';
 
-
 const environment = getEnvironment();
+
 
 const __query = graphql`
   query AppQuery {
