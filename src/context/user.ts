@@ -5,6 +5,11 @@ export interface User {
   realID: number
   firstname: string
   lastname: string
+  avatar: {
+    id: string
+    previewURL: string
+    mediumURL: string
+  }
 }
 
 export interface UserInContext {
@@ -19,4 +24,3 @@ export default React.createContext<UserInContext>({
   isAuthenticated: false,
   user: null,
 });
-

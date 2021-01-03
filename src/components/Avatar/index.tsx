@@ -1,15 +1,16 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 
 
-const Avatar = ({avatar, type }) => {
+export const Avatar = ({avatar=null, type=null, size=64 }) => {
   let imageSource: any = null;
   if (avatar) {
     imageSource = { uri: avatar.previewURL };
   }
   return (<AvatarImage
     source={imageSource}
+    size={size}
   />);
 }
 
@@ -22,8 +23,10 @@ export default createFragmentContainer(Avatar, {
 });
 
 const AvatarImage = styled.Image`
-  width: 64px;
-  height: 64px;
+  ${({size=64}) => css`
+    width: ${size}px;
+    height: ${size}px;
+  `}
   border-radius: 64px;
   background-color: #ccc;
 `;

@@ -4,12 +4,13 @@ import styled from 'styled-components/native';
 import Feed from '../../components/Feed';
 
 
-export default ({type, rubricID=null}) => {
+export default ({type, rubricID=null, BeforeFeedComponent=null}) => {
   return (<Container>
     <Feed
       type={type}
       rubricID={rubricID}
       limit={10}
+      BeforeFeedComponent={BeforeFeedComponent}
     />
   </Container>);
 }

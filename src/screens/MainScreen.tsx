@@ -28,9 +28,11 @@ import Chat from './MessengerScreen/Chat';
 import { getDialogueTitle } from './MessengerScreen/Dialogues/utils';
 import { Dialog } from './MessengerScreen/models';
 import ApplicationScreen from './ApplicationScreen';
+import CreateStoryModal from './CreateStoryModal';
 
 
 const Tab = createBottomTabNavigator();
+const RootStack = createStackNavigator();
 const Stack = createStackNavigator();
 
 const TabsScreen = () => {
@@ -67,10 +69,29 @@ const TabsScreen = () => {
   </Tab.Navigator>
 }
 
+const MainStackScreen = () => {
+  const { user } = React.useContext(userContext);
+
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="Home" component={TabsScreen} />
+      <Stack.Screen
+        name="MessengerChat"
+        component={Chat}
+        options={({route}) => {
+          const dialog = route.params.dialog as Dialog;
+          const title = getDialogueTitle("user", `${user.realID}`, dialog);
+          return { title, headerShown: true, headerBackTitleVisible: false }
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default () => {
   const isDark = useDarkMode();
-  
-  const { user } = React.useContext(userContext);
 
   /* theme Object {
     "colors": Object {
@@ -86,24 +107,15 @@ export default () => {
 
   return (<ThemeProvider theme={theme}>
     <NavigationContainer theme={theme}>
-      <Stack.Navigator screenOptions={{
-        headerShown: false,
-      }}>
-        <Stack.Screen name="Home" component={TabsScreen} />
-        <Stack.Screen
-          name="MessengerChat"
-          component={Chat}
-          options={({route}) => {
-            const dialog = route.params.dialog as Dialog;
-            const title = getDialogueTitle("user", `${user.realID}`, dialog);
-            return { title, headerShown: true, headerBackTitleVisible: false }
-          }}
+      <RootStack.Navigator mode="modal">
+        <RootStack.Screen
+          name="Main"
+          component={MainStackScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Application"
-          component={ApplicationScreen}
-        />
-      </Stack.Navigator>
+        <RootStack.Screen name="CreateStoryModal" component={CreateStoryModal} options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="Application" component={ApplicationScreen} options={{ headerShown: false, gestureEnabled: false }} />
+      </RootStack.Navigator>
     </NavigationContainer>
   </ThemeProvider>);
 }

@@ -22,6 +22,11 @@ const __query = graphql`
         realID
         firstname
         lastname
+        avatar {
+          id
+          previewURL
+          mediumURL
+        }
       }
     }
   }

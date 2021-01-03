@@ -15,4 +15,7 @@ export default {
       "title": "Настройки",
     },
   },
+  "feed": {
+    "createStoryBtnPlaceholder": "Что у вас нового?",
+  },
 };

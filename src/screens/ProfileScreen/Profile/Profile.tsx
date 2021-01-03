@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import userContext from '../../../context/user';
 import Feed from '../../../components/Feed';
 
+import BeforeFeedComponent from './BeforeFeedComponent';
+
 
 export default () => {
   const { user } = useContext(userContext);
@@ -13,9 +15,7 @@ export default () => {
     ownerKind="USER"
     ownerID={`${user.realID}`}
     limit={20}
-    BeforeFeedComponent={() => {
-      return <Test />
-    }}
+    BeforeFeedComponent={() => <BeforeFeedComponent />}
   />);
 }
 

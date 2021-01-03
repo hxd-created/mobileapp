@@ -15,4 +15,7 @@ export default {
       "title": "Settings",
     },
   },
+  "feed": {
+    "createStoryBtnPlaceholder": "Type you message here",
+  },
 };
