@@ -18,4 +18,7 @@ export default {
   "feed": {
     "createStoryBtnPlaceholder": "Type you message here",
   },
+  "createStoryModal": {
+    "textInputPlaceholder": "Type you message here",
+  },
 };

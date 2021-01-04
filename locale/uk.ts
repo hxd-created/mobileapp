@@ -18,4 +18,7 @@ export default {
   "feed": {
     "createStoryBtnPlaceholder": "Що у вас нового?",
   },
+  "createStoryModal": {
+    "textInputPlaceholder": "Що у вас нового?",
+  },
 };
