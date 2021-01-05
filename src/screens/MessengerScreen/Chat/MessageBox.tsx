@@ -5,7 +5,7 @@ import AddCircleIcon from '../../../components/Icons/AddCircleIcon';
 import WritebarSendIcon from '../../../components/Icons/WritebarSend';
 
 import { Dialog, MessageQueueItem, MessageQueueItemAttachment } from '../models';
-import AttachmentsModal from './AttachmentsModal';
+import AttachmentsModal from '../../../components/AttachmentsModal';
 
 var tempIDCounter = 0;
 function generateTempID() {
@@ -22,7 +22,7 @@ export default (props: ComponentProps) => {
   const [ isAttachmentsModalShown, setAttachmentsModalShown ] = useState(false);
   const [ attachedAssets, setAttachedAssets ] = useState([]);
   const [ messageText, setMessageText ] = useState("");
-  console.log("----messageText", messageText)
+
   const removeAttachedItem = (index) => {
     setAttachedAssets(attachedAssets.filter((_, curIndex) => curIndex !== index));
   }

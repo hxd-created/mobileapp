@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
@@ -12,34 +12,39 @@ import Footer from './Footer';
 
 export default () => {
   const navigation = useNavigation();
+  const [ attachedAssets, setAttachedAssets ] = useState([]);
 
   const title = "title user/community";
 
-  return (<SafeAreaStyled><KeyboardAvoidingStyled
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-  >
-    <Header>
-      <HeaderBtn
-        onPress={() => navigation.goBack()}
-      ><DismissIcon /></HeaderBtn>
-      <TitleContainer>
-        <Title>{title}</Title>
-      </TitleContainer>
-      <HeaderBtn
-      ><SendIcon /></HeaderBtn>
-    </Header>
+  return (
+    <SafeAreaStyled><KeyboardAvoidingStyled
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Header>
+        <HeaderBtn
+          onPress={() => navigation.goBack()}
+        ><DismissIcon width={32} height={32} /></HeaderBtn>
+        <TitleContainer>
+          <Title>{title}</Title>
+        </TitleContainer>
+        <HeaderBtn
+        ><SendIcon width={32} height={32} /></HeaderBtn>
+      </Header>
 
-    <Body>
-      <TextInputStyled
-        placeholder={i18n.t("createStoryModal.textInputPlaceholder")}
-        placeholderTextColor="#ccc"
-        multiline
-        scrollEnabled={false}
+      <Body>
+        <TextInputStyled
+          placeholder={i18n.t("createStoryModal.textInputPlaceholder")}
+          placeholderTextColor="#ccc"
+          multiline
+          scrollEnabled={false}
+        />
+      </Body>
+
+      <Footer
+        setAttachedAssets={(newAttachedAssets) => { setAttachedAssets([...attachedAssets, ...newAttachedAssets]) }}
       />
-    </Body>
-
-    <Footer />
-  </KeyboardAvoidingStyled></SafeAreaStyled>);
+    </KeyboardAvoidingStyled></SafeAreaStyled>
+  );
 }
 
 const SafeAreaStyled = styled(SafeAreaView)`

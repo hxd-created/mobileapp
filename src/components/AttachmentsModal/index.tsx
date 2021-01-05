@@ -134,4 +134,3 @@ const ActionLabel = styled.Text`
     color: ${theme.colors.text};
   `}
 `;
-

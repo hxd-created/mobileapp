@@ -4,11 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled, { css } from 'styled-components';
 
 import ChevronDownIcon from '../../components/Icons/ChevronDown';
+import AddCircleIcon from '../../components/Icons/AddCircleIcon';
 import KeyboardIcon from '../../components/Icons/Keyboard';
+import AttachmentsModal from '../../components/AttachmentsModal';
 
 
-export default () => {
+export default ({setAttachedAssets}) => {
   const [ isKeyboardShown, setKeyboardShown ] = useState(false);
+  const [ isAttachmentsModalShown, setAttachmentsModalShown ] = useState(false);
+
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
     Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
@@ -36,16 +40,26 @@ export default () => {
     }
   }
 
-  return (<Container>
-    <LeftActions>
+  return (<>
+    <Container>
+      <LeftActions>
+        <TouchableOpacity onPress={() => setAttachmentsModalShown(true)}>
+          <AddCircleIcon />
+        </TouchableOpacity>
+      </LeftActions>
+      <RightActions>
+        <TouchableOpacity onPress={toggleKeyboard}>
+          {isKeyboardShown ? <ChevronDownIcon /> : <KeyboardIcon />}
+        </TouchableOpacity>
+      </RightActions>
+    </Container>
 
-    </LeftActions>
-    <RightActions>
-      <TouchableOpacity onPress={toggleKeyboard}>
-        {isKeyboardShown ? <ChevronDownIcon /> : <KeyboardIcon />}
-      </TouchableOpacity>
-    </RightActions>
-  </Container>);
+    <AttachmentsModal
+      isShown={isAttachmentsModalShown}
+      addAttachments={setAttachmentsModalShown}
+      onClose={() => setAttachmentsModalShown(false)}
+    />
+  </>);
 }
 
 const Container = styled.View`
